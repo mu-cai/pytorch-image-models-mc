@@ -407,8 +407,10 @@ class ConvNeXt(nn.Module):
         x = self.head.drop(x)
         return x if pre_logits else self.head.fc(x)
 
-    def forward(self, x):
+    def forward(self, x, get_second_last_feature = False):
         x = self.forward_features(x)
+        if get_second_last_feature:
+            return x
         x = self.forward_head(x)
         return x
 
